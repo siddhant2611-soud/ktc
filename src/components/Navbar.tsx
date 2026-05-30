@@ -56,9 +56,15 @@ export function Navbar() {
 
           
           <div className="hidden lg:flex items-center gap-6">
-            <div className="flex items-center gap-2 text-white">
-              <Phone className="w-5 h-5 text-ktc-accent-primary" />
-              <span className="font-subheading font-semibold text-[12px] tracking-wider">+91 9810977611</span>
+            <div className="flex flex-col items-end text-white">
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-ktc-accent-primary" />
+                <span className="font-subheading font-semibold text-[12px] tracking-wider">+91 9810977611</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-ktc-accent-primary uppercase tracking-widest font-black">24x7</span>
+                <span className="font-subheading font-semibold text-[12px] tracking-wider">+91 9911995540</span>
+              </div>
             </div>
             <a
               href="#contact"
@@ -99,9 +105,15 @@ export function Navbar() {
                 </a>
               ))}
               <div className="pt-4 mt-2 border-t border-ktc-border flex flex-col gap-4">
-                <div className="flex items-center gap-2 text-white">
-                  <Phone className="w-5 h-5 text-ktc-accent-primary" />
-                  <span className="font-subheading font-semibold">+91 9810977611</span>
+                <div className="flex flex-col gap-2 text-white">
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-5 h-5 text-ktc-accent-primary" />
+                    <span className="font-subheading font-semibold">+91 9810977611</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-5 flex justify-center text-[10px] text-ktc-accent-primary uppercase tracking-widest font-black">24x7</span>
+                    <span className="font-subheading font-semibold">+91 9911995540</span>
+                  </div>
                 </div>
                 <a
                   href="#contact"

@@ -1,7 +1,21 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { MapPin, Phone, Mail, Send, Instagram } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, Instagram, HeadphonesIcon } from 'lucide-react';
 
 export function Contact() {
+  const [selectedVehicle, setSelectedVehicle] = useState('');
+
+  useEffect(() => {
+    const handleVehicleSelect = (e: any) => {
+      if (e.detail) {
+        setSelectedVehicle(e.detail);
+      }
+    };
+    
+    window.addEventListener('select-vehicle', handleVehicleSelect);
+    return () => window.removeEventListener('select-vehicle', handleVehicleSelect);
+  }, []);
+
   return (
     <section id="contact" className="py-24 bg-ktc-bg-primary relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/2 h-full bg-ktc-bg-section/50 transform skew-x-12 translate-x-32 hidden lg:block -z-10 border-l border-ktc-border/50" />
@@ -41,6 +55,19 @@ export function Contact() {
               <div>
                 <h4 className="text-lg font-heading font-bold text-white mb-1">Phone Number</h4>
                 <a href="tel:+919810977611" className="text-ktc-text-muted hover:text-white transition-colors block font-subheading text-lg">+91 9810977611</a>
+                <a href="tel:+919911995540" className="text-ktc-text-muted hover:text-white transition-colors block font-subheading text-lg mt-1">+91 9911995540</a>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-ktc-bg-card rounded-lg border border-ktc-border flex items-center justify-center shrink-0">
+                <HeadphonesIcon className="w-5 h-5 text-ktc-accent-primary" />
+              </div>
+              <div>
+                <h4 className="text-lg font-heading font-bold text-white mb-1">24x7 Support</h4>
+                <p className="text-ktc-text-muted leading-relaxed">
+                  Our operations team works round-the-clock for tracking and emergency bookings.
+                </p>
               </div>
             </div>
 
@@ -128,6 +155,8 @@ export function Contact() {
                     <label htmlFor="vehicle" className="text-sm font-subheading text-[#94A3B8]">Vehicle Requirement</label>
                     <select 
                       id="vehicle" 
+                      value={selectedVehicle}
+                      onChange={(e) => setSelectedVehicle(e.target.value)}
                       className="w-full bg-ktc-bg-primary border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors text-sm appearance-none"
                     >
                       <option value="">Select Truck Type</option>

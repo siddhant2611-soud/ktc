@@ -6,27 +6,31 @@ const vehicles = [
     name: "32 Ft Multi-Axle / Container", 
     capacity: "14-20 Tons", 
     type: "Heavy Duty", 
+    id: "trailer",
     desc: "Ideal for high volume, heavy industrial goods and FMCG on long haul PAN-India routes.",
     imageUrl: "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&q=80&w=600"
   },
   { 
     name: "20-22 Ft Closed Container", 
     capacity: "6-9 Tons", 
-    type: "Secure Transit", 
+    type: "Secure Transit",
+    id: "container",
     desc: "Perfect for electronics, garments, pharmaceuticals, and weather-sensitive cargo.",
     imageUrl: "https://images.unsplash.com/photo-1601584115168-9bfb2c86443c?auto=format&fit=crop&q=80&w=600"
   },
   { 
     name: "17-19 Ft Open Body", 
     capacity: "5-7 Tons", 
-    type: "Versatile", 
+    type: "Versatile",
+    id: "open",
     desc: "Suited for construction materials, machinery, hardware, and agricultural products.",
     imageUrl: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80&w=600"
   },
   { 
     name: "14 Ft Container", 
     capacity: "3-4 Tons", 
-    type: "Local & Regional", 
+    type: "Local & Regional",
+    id: "container",
     desc: "Best for intra-city distributions, short-distance inter-city deliveries and retail supply.",
     imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8ed7c50a18?auto=format&fit=crop&q=80&w=600"
   }
@@ -91,9 +95,16 @@ export function Fleet() {
                 <h3 className="text-xl font-bold text-white mb-2 leading-tight">{v.name}</h3>
                 <p className="text-[12px] text-[#94A3B8] leading-relaxed flex-grow">{v.desc}</p>
                 <div className="h-[1px] w-full bg-white/5 my-4" />
-                <a href="#contact" className="text-[10px] font-bold text-white uppercase tracking-widest flex items-center gap-1 group-hover:text-ktc-accent-primary transition-colors">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.dispatchEvent(new CustomEvent('select-vehicle', { detail: v.id }));
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-[10px] font-bold text-white uppercase tracking-widest flex items-center gap-1 group-hover:text-ktc-accent-primary transition-colors cursor-pointer text-left focus:outline-none"
+                >
                   Book this truck <ChevronRight className="w-3 h-3" />
-                </a>
+                </button>
               </div>
             </motion.div>
           ))}

@@ -1,8 +1,10 @@
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { TrustBar } from './components/TrustBar';
+import { Tracking } from './components/Tracking';
 import { Services } from './components/Services';
 import { Fleet } from './components/Fleet';
+import { TruckOwner } from './components/TruckOwner';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { About } from './components/About';
 import { Process } from './components/Process';
@@ -21,8 +23,10 @@ export default function App() {
       <main>
         <Hero />
         <TrustBar />
+        <Tracking />
         <Services />
         <Fleet />
+        <TruckOwner />
         <WhyChooseUs />
         <About />
         <Process />
@@ -37,4 +41,5 @@ export default function App() {
     </div>
   );
 }
+
 

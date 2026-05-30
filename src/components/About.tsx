@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { Target, CheckCircle } from 'lucide-react';
+import { Target, CheckCircle2 } from 'lucide-react';
+import { OperationalMap } from './OperationalMap';
 
 export function About() {
   return (
@@ -58,7 +59,7 @@ export function About() {
                     transition={{ delay: i * 0.1 + 0.3 }}
                     className="flex items-center gap-3"
                   >
-                    <CheckCircle className="w-6 h-6 text-ktc-highlight" />
+                    <CheckCircle2 className="w-6 h-6 text-ktc-highlight" />
                     <span className="font-subheading text-gray-200">{item}</span>
                   </motion.div>
                 ))}
@@ -66,6 +67,8 @@ export function About() {
             </motion.div>
           </div>
         </div>
+
+        <OperationalMap />
       </div>
     </section>
   );
