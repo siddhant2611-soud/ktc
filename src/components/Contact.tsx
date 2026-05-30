@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, Send, Instagram, HeadphonesIcon } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { AuthModal } from './AuthModal';
+import { db } from '../lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export function Contact() {
+  const { user } = useAuth();
+  const [authModalOpen, setAuthModalOpen] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState('');
   const [formData, setFormData] = useState({
     pickup: '',
@@ -29,12 +35,24 @@ export function Contact() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const processSubmit = async () => {
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
     try {
+      if (user) {
+        // Save to Firestore
+        await addDoc(collection(db, 'bookings'), {
+          ...formData,
+          vehicle: selectedVehicle,
+          userId: user.uid,
+          userEmail: user.email,
+          status: 'pending',
+          createdAt: serverTimestamp()
+        });
+      }
+
+      // Still send to backend for logging/email simulation
       const response = await fetch('/api/quote', {
         method: 'POST',
         headers: {
@@ -42,7 +60,8 @@ export function Contact() {
         },
         body: JSON.stringify({
           ...formData,
-          vehicle: selectedVehicle
+          vehicle: selectedVehicle,
+          userId: user?.uid
         }),
       });
 
@@ -58,11 +77,28 @@ export function Contact() {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
-      setTimeout(() => setSubmitStatus('idle'), 5000); // clear status after 5s
+      setTimeout(() => setSubmitStatus('idle'), 5000); 
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) {
+      setAuthModalOpen(true);
+      return;
+    }
+    await processSubmit();
+  };
+
+  // Run the submit once the auth is resolved successfully via modal
+  const handleAuthSuccess = () => {
+    setAuthModalOpen(false);
+    // Don't auto submit because it might be jarring, or maybe we do? 
+    // Let the user click submit again now that they're logged in.
+  };
+
   return (
+    <>
     <section id="contact" className="py-24 bg-ktc-bg-primary relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/2 h-full bg-ktc-bg-section/50 transform skew-x-12 translate-x-32 hidden lg:block -z-10 border-l border-ktc-border/50" />
       
@@ -260,7 +296,6 @@ export function Contact() {
             </div>
             
             <div className="mt-8 h-[250px] rounded-xl overflow-hidden border border-ktc-border bg-ktc-bg-section flex items-center justify-center">
-              {/* Optional: Implement a real map here if an API key is available, else keep generic abstract graphic or simple iframe */}
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14013.80556950293!2d77.4116491!3d28.5855018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cef6e036230f3%3A0xe54c1f67f4a5ff6b!2sGaur%20City%20Center!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
                 width="100%" 
@@ -276,5 +311,11 @@ export function Contact() {
         </div>
       </div>
     </section>
+    <AuthModal 
+        isOpen={authModalOpen} 
+        onClose={() => setAuthModalOpen(false)} 
+        onSuccess={handleAuthSuccess}
+    />
+    </>
   );
 }

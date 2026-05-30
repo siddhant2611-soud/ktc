@@ -12,6 +12,7 @@ import { Achievements } from './components/Achievements';
 import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
 import { CTA } from './components/CTA';
+import { MyBookings } from './components/MyBookings';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -36,6 +37,7 @@ export default function App() {
         <Testimonials />
         <FAQ />
         <CTA />
+        <MyBookings />
         <Contact />
       </main>
       <Footer />

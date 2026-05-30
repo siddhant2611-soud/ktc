@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Phone, Truck } from 'lucide-react';
+import { Menu, X, Phone, User, LogOut } from 'lucide-react';
 import { Logo } from './Logo';
+import { useAuth } from '../contexts/AuthContext';
+import { AuthModal } from './AuthModal';
+import { auth } from '../lib/firebase';
+import { signOut } from 'firebase/auth';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +21,14 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'Services', href: '#services' },
@@ -22,7 +36,12 @@ export function Navbar() {
     { name: 'Contact', href: '#contact' },
   ];
 
+  if (user) {
+    navLinks.splice(3, 0, { name: 'My Bookings', href: '#my-bookings' });
+  }
+
   return (
+    <>
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'bg-ktc-bg-primary/90 backdrop-blur-md border-b border-ktc-border py-4' : 'bg-transparent py-6'
@@ -60,6 +79,28 @@ export function Navbar() {
                 <span className="font-subheading font-semibold text-[12px] tracking-wider">+91 9911995540</span>
               </div>
             </div>
+            {user ? (
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 text-white">
+                  <User className="w-4 h-4 text-ktc-accent-primary" />
+                  <span className="text-xs font-bold">{user.displayName || user.email?.split('@')[0]}</span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="text-ktc-text-muted hover:text-white"
+                  title="Log out"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setAuthModalOpen(true)}
+                className="text-white text-[12px] font-bold uppercase tracking-widest hover:text-ktc-accent-primary transition-colors"
+              >
+                Sign In
+              </button>
+            )}
             <a
               href="#contact"
               className="bg-ktc-accent-primary hover:bg-ktc-accent-secondary text-white font-black px-6 py-2 rounded text-[12px] uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(29,78,216,0.3)]"
@@ -88,6 +129,24 @@ export function Navbar() {
             className="lg:hidden bg-ktc-bg-secondary border-b border-ktc-border overflow-hidden"
           >
             <div className="px-4 py-6 space-y-4 flex flex-col">
+              {user ? (
+                <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                  <div className="flex items-center gap-2 text-white">
+                    <User className="w-5 h-5 text-ktc-accent-primary" />
+                    <span className="font-bold">{user.displayName || user.email?.split('@')[0]}</span>
+                  </div>
+                  <button onClick={() => { handleLogout(); setMobileMenuOpen(false); }} className="text-gray-400 hover:text-white">
+                    <LogOut className="w-5 h-5" />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => { setAuthModalOpen(true); setMobileMenuOpen(false); }}
+                  className="text-left text-ktc-accent-primary font-bold uppercase tracking-widest pb-4 border-b border-white/10"
+                >
+                  Sign In / Register
+                </button>
+              )}
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -122,5 +181,7 @@ export function Navbar() {
         )}
       </AnimatePresence>
     </header>
+    <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
+    </>
   );
 }
