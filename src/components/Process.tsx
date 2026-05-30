@@ -35,7 +35,7 @@ export function Process() {
                 <div className="flex flex-col items-center text-center">
                   <div className="w-16 h-16 bg-ktc-bg-primary rounded-full border border-white/10 flex items-center justify-center relative z-10 mb-6 group hover:border-ktc-accent-primary transition-colors">
                     <step.icon className="w-6 h-6 text-[#94A3B8] group-hover:text-ktc-accent-primary transition-colors" />
-                    <div className="absolute top-0 right-0 -mt-2 -mr-2 w-6 h-6 bg-ktc-accent-primary rounded-full text-[10px] font-bold flex items-center justify-center text-black">
+                    <div className="absolute top-0 right-0 -mt-2 -mr-2 w-6 h-6 bg-ktc-accent-primary rounded-full text-[10px] font-bold flex items-center justify-center text-white">
                       {step.id}
                     </div>
                   </div>

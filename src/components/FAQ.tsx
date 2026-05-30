@@ -35,7 +35,7 @@ export function FAQ() {
   return (
     <section className="py-24 bg-[#111827] border-y border-white/5 relative overflow-hidden">
       <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none scale-150 transform translate-x-1/4 -translate-y-1/4">
-        <svg width="400" height="400" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" strokeWidth="0.5">
+        <svg width="400" height="400" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" strokeWidth="0.5">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/>
         </svg>
       </div>

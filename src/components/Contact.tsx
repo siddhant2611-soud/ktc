@@ -4,6 +4,14 @@ import { MapPin, Phone, Mail, Send, Instagram, HeadphonesIcon } from 'lucide-rea
 
 export function Contact() {
   const [selectedVehicle, setSelectedVehicle] = useState('');
+  const [formData, setFormData] = useState({
+    pickup: '',
+    drop: '',
+    phone: '',
+    material: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     const handleVehicleSelect = (e: any) => {
@@ -15,6 +23,44 @@ export function Contact() {
     window.addEventListener('select-vehicle', handleVehicleSelect);
     return () => window.removeEventListener('select-vehicle', handleVehicleSelect);
   }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/quote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          vehicle: selectedVehicle
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ pickup: '', drop: '', phone: '', material: '' });
+        setSelectedVehicle('');
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus('idle'), 5000); // clear status after 5s
+    }
+  };
 
   return (
     <section id="contact" className="py-24 bg-ktc-bg-primary relative overflow-hidden">
@@ -119,13 +165,26 @@ export function Contact() {
               <div className="absolute top-0 right-0 w-32 h-32 bg-ktc-accent-primary opacity-5 mix-blend-screen blur-3xl" />
               
               <h3 className="text-2xl font-black italic tracking-tighter uppercase text-white mb-6">Online Truck Booking / Get Quote</h3>
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              {submitStatus === 'success' && (
+                <div className="mb-6 bg-green-500/10 border border-green-500/50 text-green-400 px-4 py-3 rounded text-sm">
+                  Thank you! Your quote request has been received. Our team will contact you shortly.
+                </div>
+              )}
+              {submitStatus === 'error' && (
+                <div className="mb-6 bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded text-sm">
+                  Something went wrong. Please try again or contact us directly.
+                </div>
+              )}
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label htmlFor="pickup" className="text-sm font-subheading text-[#94A3B8]">Pickup Location</label>
                     <input 
                       type="text" 
                       id="pickup" 
+                      value={formData.pickup}
+                      onChange={handleInputChange}
+                      required
                       className="w-full bg-ktc-bg-primary border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors text-sm"
                       placeholder="e.g. Noida, UP"
                     />
@@ -135,6 +194,9 @@ export function Contact() {
                     <input 
                       type="text" 
                       id="drop" 
+                      value={formData.drop}
+                      onChange={handleInputChange}
+                      required
                       className="w-full bg-ktc-bg-primary border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors text-sm"
                       placeholder="e.g. Mumbai, MH"
                     />
@@ -147,6 +209,9 @@ export function Contact() {
                     <input 
                       type="tel" 
                       id="phone" 
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required
                       className="w-full bg-ktc-bg-primary border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors text-sm"
                       placeholder="+91 .."
                     />
@@ -157,12 +222,14 @@ export function Contact() {
                       id="vehicle" 
                       value={selectedVehicle}
                       onChange={(e) => setSelectedVehicle(e.target.value)}
+                      required
                       className="w-full bg-ktc-bg-primary border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors text-sm appearance-none"
                     >
                       <option value="">Select Truck Type</option>
-                      <option value="open">Open Body (17-19 Ft)</option>
-                      <option value="container">Closed Container (14-22 Ft)</option>
-                      <option value="trailer">Trailer / Heavy Duty</option>
+                      <option value="10ft">10 Ft Mini Truck</option>
+                      <option value="14ft">14 Ft Open Container</option>
+                      <option value="19ft">19 Ft Open Container</option>
+                      <option value="container">20-22 Ft Closed Container</option>
                       <option value="not_sure">Not Sure (Need Help)</option>
                     </select>
                   </div>
@@ -173,6 +240,9 @@ export function Contact() {
                   <input 
                     type="text"
                     id="material" 
+                    value={formData.material}
+                    onChange={handleInputChange}
+                    required
                     className="w-full bg-ktc-bg-primary border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors text-sm"
                     placeholder="e.g. 5 Tonnes of Electronics"
                   />
@@ -180,10 +250,11 @@ export function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full bg-ktc-accent-primary hover:bg-ktc-accent-secondary text-black font-black px-6 py-4 rounded text-[12px] uppercase tracking-widest transition-colors flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(255,107,0,0.3)]"
+                  disabled={isSubmitting}
+                  className="w-full bg-ktc-accent-primary hover:bg-ktc-accent-secondary disabled:bg-ktc-accent-primary/50 text-white font-black px-6 py-4 rounded text-[12px] uppercase tracking-widest transition-colors flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(29,78,216,0.3)] disabled:shadow-none"
                 >
-                  Check Transportation Cost
-                  <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  {isSubmitting ? 'Sending Request...' : 'Check Transportation Cost'}
+                  {!isSubmitting && <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
                 </button>
               </form>
             </div>

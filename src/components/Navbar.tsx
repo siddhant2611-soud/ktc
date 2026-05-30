@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, Truck } from 'lucide-react';
+import { Logo } from './Logo';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,7 +19,6 @@ export function Navbar() {
     { name: 'Home', href: '#home' },
     { name: 'Services', href: '#services' },
     { name: 'About', href: '#about' },
-    { name: 'Gallery', href: '#gallery' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -32,13 +32,7 @@ export function Navbar() {
         <div className="flex items-center justify-between">
           
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-ktc-accent-primary rounded flex items-center justify-center font-black text-black text-xl italic">
-              KTC
-            </div>
-            <div>
-              <h1 className="text-lg font-extrabold uppercase leading-none tracking-tighter text-white">Kaushik Transport</h1>
-              <span className="text-[10px] text-ktc-text-muted font-semibold tracking-widest uppercase">Logistics Solutions</span>
-            </div>
+            <Logo />
           </div>
 
           
@@ -68,7 +62,7 @@ export function Navbar() {
             </div>
             <a
               href="#contact"
-              className="bg-ktc-accent-primary hover:bg-ktc-accent-secondary text-black font-black px-6 py-2 rounded text-[12px] uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(255,107,0,0.3)]"
+              className="bg-ktc-accent-primary hover:bg-ktc-accent-secondary text-white font-black px-6 py-2 rounded text-[12px] uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(29,78,216,0.3)]"
             >
               Get Quote
             </a>

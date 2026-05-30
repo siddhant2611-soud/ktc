@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
 import { Target, CheckCircle2 } from 'lucide-react';
-import { OperationalMap } from './OperationalMap';
 
 export function About() {
   return (
@@ -67,8 +66,6 @@ export function About() {
             </motion.div>
           </div>
         </div>
-
-        <OperationalMap />
       </div>
     </section>
   );

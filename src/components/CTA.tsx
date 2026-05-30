@@ -43,7 +43,7 @@ export function CTA() {
           >
             <a
               href="#contact"
-              className="group relative flex items-center justify-center gap-2 bg-ktc-accent-primary hover:bg-ktc-accent-secondary text-black px-8 py-4 rounded font-black text-[12px] uppercase tracking-widest transition-all overflow-hidden shadow-[0_0_20px_rgba(255,107,0,0.3)]"
+              className="group relative flex items-center justify-center gap-2 bg-ktc-accent-primary hover:bg-ktc-accent-secondary text-white px-8 py-4 rounded font-black text-[12px] uppercase tracking-widest transition-all overflow-hidden shadow-[0_0_20px_rgba(29,78,216,0.3)]"
             >
               <span className="relative z-10">Get Free Quote</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />

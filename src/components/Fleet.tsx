@@ -3,12 +3,28 @@ import { Truck, ChevronRight } from 'lucide-react';
 
 const vehicles = [
   { 
-    name: "32 Ft Multi-Axle / Container", 
-    capacity: "14-20 Tons", 
-    type: "Heavy Duty", 
-    id: "trailer",
-    desc: "Ideal for high volume, heavy industrial goods and FMCG on long haul PAN-India routes.",
-    imageUrl: "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&q=80&w=600"
+    name: "10 Ft Mini Truck", 
+    capacity: "1-1.5 Tons", 
+    type: "Last Mile", 
+    id: "10ft",
+    desc: "Perfect for quick, intra-city drops, light electronics, and small-scale shifting.",
+    imageUrl: "/mini_truck_10ft.png"
+  },
+  { 
+    name: "14 Ft Open Container", 
+    capacity: "3-4 Tons", 
+    type: "Local & Regional",
+    id: "14ft",
+    desc: "Best for intra-city distributions, short-distance inter-city deliveries and retail supply.",
+    imageUrl: "/truck_14ft_open.png"
+  },
+  { 
+    name: "19 Ft Open Container", 
+    capacity: "5-7 Tons", 
+    type: "Versatile",
+    id: "19ft",
+    desc: "Suited for construction materials, machinery, hardware, and agricultural products.",
+    imageUrl: "/truck_19ft_open.png"
   },
   { 
     name: "20-22 Ft Closed Container", 
@@ -16,23 +32,7 @@ const vehicles = [
     type: "Secure Transit",
     id: "container",
     desc: "Perfect for electronics, garments, pharmaceuticals, and weather-sensitive cargo.",
-    imageUrl: "https://images.unsplash.com/photo-1601584115168-9bfb2c86443c?auto=format&fit=crop&q=80&w=600"
-  },
-  { 
-    name: "17-19 Ft Open Body", 
-    capacity: "5-7 Tons", 
-    type: "Versatile",
-    id: "open",
-    desc: "Suited for construction materials, machinery, hardware, and agricultural products.",
-    imageUrl: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80&w=600"
-  },
-  { 
-    name: "14 Ft Container", 
-    capacity: "3-4 Tons", 
-    type: "Local & Regional",
-    id: "container",
-    desc: "Best for intra-city distributions, short-distance inter-city deliveries and retail supply.",
-    imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8ed7c50a18?auto=format&fit=crop&q=80&w=600"
+    imageUrl: "/truck_22ft_container.png"
   }
 ];
 
@@ -79,7 +79,7 @@ export function Fleet() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-[#161B22] border border-white/5 rounded-2xl overflow-hidden group hover:border-[#FF6B00]/50 transition-colors flex flex-col h-full"
+              className="bg-[#161B22] border border-white/5 rounded-2xl overflow-hidden group hover:border-[#1D4ED8]/50 transition-colors flex flex-col h-full"
             >
               <div className="h-48 overflow-hidden relative">
                 <img src={v.imageUrl} alt={v.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100" />

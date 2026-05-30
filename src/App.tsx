@@ -10,11 +10,12 @@ import { About } from './components/About';
 import { Process } from './components/Process';
 import { Achievements } from './components/Achievements';
 import { Testimonials } from './components/Testimonials';
-import { Gallery } from './components/Gallery';
 import { FAQ } from './components/FAQ';
 import { CTA } from './components/CTA';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { ScrollToTop } from './components/ScrollToTop';
+import { WhatsAppFloat } from './components/WhatsAppFloat';
 
 export default function App() {
   return (
@@ -32,12 +33,13 @@ export default function App() {
         <Process />
         <Achievements />
         <Testimonials />
-        <Gallery />
         <FAQ />
         <CTA />
         <Contact />
       </main>
       <Footer />
+      <ScrollToTop />
+      <WhatsAppFloat />
     </div>
   );
 }

@@ -30,7 +30,7 @@ export function TruckOwner() {
       
       {/* Abstract Background Element */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 p-8 opacity-5 pointer-events-none transform -translate-x-1/4 scale-150">
-        <svg width="400" height="400" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" strokeWidth="0.5">
+        <svg width="400" height="400" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" strokeWidth="0.5">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
         </svg>
       </div>
@@ -45,13 +45,13 @@ export function TruckOwner() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center gap-2 bg-[#FF6B00]/10 text-[#FF6B00] px-3 py-1 rounded text-[10px] font-bold tracking-widest uppercase mb-6 w-fit border border-[#FF6B00]/20">
+              <div className="inline-flex items-center gap-2 bg-[#1D4ED8]/10 text-[#1D4ED8] px-3 py-1 rounded text-[10px] font-bold tracking-widest uppercase mb-6 w-fit border border-[#1D4ED8]/20">
                 <Truck className="w-3 h-3" />
                 For Fleet Owners
               </div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black italic tracking-tighter uppercase text-white mb-6 leading-[0.9]">
                 Attach Your Truck. <br />
-                <span className="text-[#FF6B00]">Grow Your Business.</span>
+                <span className="text-[#1D4ED8]">Grow Your Business.</span>
               </h2>
               <p className="text-[#94A3B8] text-lg font-medium leading-relaxed mb-10 max-w-lg">
                 Join India's fastest-growing logistics network. We provide consistent loads, reliable payments, and operational support so you can focus on moving forward.
@@ -68,7 +68,7 @@ export function TruckOwner() {
                     className="flex flex-col gap-3"
                   >
                     <div className="w-10 h-10 border border-white/10 rounded-xl flex items-center justify-center bg-[#111827]">
-                      <benefit.icon className="w-5 h-5 text-[#FF6B00]" />
+                      <benefit.icon className="w-5 h-5 text-[#1D4ED8]" />
                     </div>
                     <div>
                       <h3 className="text-[13px] font-bold text-white uppercase tracking-wider mb-2">{benefit.title}</h3>
@@ -88,7 +88,7 @@ export function TruckOwner() {
               viewport={{ once: true }}
               className="bg-[#111827] border border-white/5 rounded-3xl p-8 relative overflow-hidden shadow-2xl"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF6B00] opacity-10 mix-blend-screen blur-3xl rounded-full" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#1D4ED8] opacity-10 mix-blend-screen blur-3xl rounded-full" />
               
               <h3 className="text-2xl font-black italic tracking-tighter uppercase text-white mb-2">Partner With Us</h3>
               <p className="text-[12px] text-[#94A3B8] font-bold uppercase tracking-widest mb-8">Enter your details to attach your vehicle</p>
@@ -102,8 +102,8 @@ export function TruckOwner() {
                     exit={{ opacity: 0, scale: 0.9 }}
                     className="flex flex-col items-center justify-center py-12 text-center"
                   >
-                    <div className="w-16 h-16 bg-[#FF6B00]/20 rounded-full flex items-center justify-center mb-4">
-                      <CheckCircle2 className="w-8 h-8 text-[#FF6B00]" />
+                    <div className="w-16 h-16 bg-[#1D4ED8]/20 rounded-full flex items-center justify-center mb-4">
+                      <CheckCircle2 className="w-8 h-8 text-[#1D4ED8]" />
                     </div>
                     <h4 className="text-xl font-black uppercase text-white mb-2">Application Received!</h4>
                     <p className="text-[#94A3B8] text-sm">Our team will contact you shortly to verify your details and attach your fleet.</p>
@@ -124,7 +124,7 @@ export function TruckOwner() {
                           type="text" 
                           id="ownerName" 
                           required
-                          className="w-full bg-[#161B22] border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-[#FF6B00] focus:ring-1 focus:ring-[#FF6B00] transition-colors text-sm font-bold"
+                          className="w-full bg-[#161B22] border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-[#1D4ED8] focus:ring-1 focus:ring-[#1D4ED8] transition-colors text-sm font-bold"
                           placeholder="e.g. Ramesh Kumar"
                         />
                       </div>
@@ -134,7 +134,7 @@ export function TruckOwner() {
                           type="tel" 
                           id="ownerPhone" 
                           required
-                          className="w-full bg-[#161B22] border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-[#FF6B00] focus:ring-1 focus:ring-[#FF6B00] transition-colors text-sm font-bold"
+                          className="w-full bg-[#161B22] border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-[#1D4ED8] focus:ring-1 focus:ring-[#1D4ED8] transition-colors text-sm font-bold"
                           placeholder="+91 .."
                         />
                       </div>
@@ -146,14 +146,13 @@ export function TruckOwner() {
                         <select 
                           id="truckType" 
                           required
-                          className="w-full bg-[#161B22] border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-[#FF6B00] focus:ring-1 focus:ring-[#FF6B00] transition-colors text-sm font-bold appearance-none"
+                          className="w-full bg-[#161B22] border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-[#1D4ED8] focus:ring-1 focus:ring-[#1D4ED8] transition-colors text-sm font-bold appearance-none"
                         >
                           <option value="">Select Truck</option>
-                          <option value="14ft">14 Ft / 17 Ft</option>
-                          <option value="19ft">19 Ft Open / Container</option>
-                          <option value="22ft">22 Ft Container</option>
-                          <option value="32ft">32 Ft Multi-Axle</option>
-                          <option value="trailer">Trailer</option>
+                          <option value="10ft">10 Ft Mini Truck</option>
+                          <option value="14ft">14 Ft Open Container</option>
+                          <option value="19ft">19 Ft Open Container</option>
+                          <option value="container">20-22 Ft Closed Container</option>
                         </select>
                       </div>
                       <div className="space-y-2">
@@ -161,7 +160,7 @@ export function TruckOwner() {
                         <input 
                           type="text" 
                           id="routes" 
-                          className="w-full bg-[#161B22] border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-[#FF6B00] focus:ring-1 focus:ring-[#FF6B00] transition-colors text-sm font-bold"
+                          className="w-full bg-[#161B22] border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-[#1D4ED8] focus:ring-1 focus:ring-[#1D4ED8] transition-colors text-sm font-bold"
                           placeholder="e.g. NCR to Mumbai"
                         />
                       </div>
@@ -173,7 +172,7 @@ export function TruckOwner() {
                         type="number" 
                         id="truckCount" 
                         required
-                        className="w-full bg-[#161B22] border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-[#FF6B00] focus:ring-1 focus:ring-[#FF6B00] transition-colors text-sm font-bold"
+                        className="w-full bg-[#161B22] border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-[#1D4ED8] focus:ring-1 focus:ring-[#1D4ED8] transition-colors text-sm font-bold"
                         placeholder="1"
                         min="1"
                       />
@@ -182,7 +181,7 @@ export function TruckOwner() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full mt-4 bg-[#FF6B00] hover:bg-[#F97316] text-black font-black px-6 py-4 rounded text-[12px] uppercase tracking-widest transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(255,107,0,0.3)] disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="w-full mt-4 bg-[#1D4ED8] hover:bg-[#1E40AF] text-white font-black px-6 py-4 rounded text-[12px] uppercase tracking-widest transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(29,78,216,0.3)] disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center gap-2">

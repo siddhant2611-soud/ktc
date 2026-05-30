@@ -1,15 +1,23 @@
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowRight, ShieldCheck, Star } from 'lucide-react';
+import { useRef } from 'react';
 
 export function Hero() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+
   return (
-    <section id="home" className="relative h-screen min-h-[600px] flex items-center pt-20 overflow-hidden">
+    <section ref={ref} id="home" className="relative h-screen min-h-[600px] flex items-center pt-20 overflow-hidden">
       
       <div className="absolute inset-0 z-0">
         <motion.div 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 10, ease: "easeOut" }}
+          style={{ y, scale }}
           className="absolute inset-0"
         >
           <img
@@ -69,7 +77,7 @@ export function Hero() {
           >
             <a
               href="#contact"
-              className="group relative flex items-center justify-center gap-2 bg-ktc-accent-primary hover:bg-ktc-accent-secondary text-black px-8 py-4 rounded font-black text-[12px] uppercase tracking-widest transition-all overflow-hidden shadow-[0_0_20px_rgba(255,107,0,0.3)]"
+              className="group relative flex items-center justify-center gap-2 bg-ktc-accent-primary hover:bg-ktc-accent-secondary text-white px-8 py-4 rounded font-black text-[12px] uppercase tracking-widest transition-all overflow-hidden shadow-[0_0_20px_rgba(29,78,216,0.3)]"
             >
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
               <span className="relative z-10">Get Instant Quote</span>
