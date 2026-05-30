@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@400;600;700;800&family=Poppins:wght@500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-subheading: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ktc-bg-primary: #0A0A0A;
+  --color-ktc-bg-secondary: #111827;
+  --color-ktc-bg-section: #161B22;
+  --color-ktc-bg-card: #1F2937;
+  --color-ktc-accent-primary: #FF6B00;
+  --color-ktc-accent-secondary: #F97316;
+  --color-ktc-highlight: #FFD700;
+  --color-ktc-text: #FFFFFF;
+  --color-ktc-text-muted: #94A3B8;
+  --color-ktc-border: rgba(255, 255, 255, 0.08);
+}
+
+@layer base {
+  body {
+    @apply bg-ktc-bg-primary text-ktc-text font-sans antialiased overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-ktc-bg-primary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-ktc-bg-card rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-ktc-accent-primary;
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Kaushik Transport Company",
+  "description": "Premium dark mode transport and logistics company website showcasing services, process, and trust.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
