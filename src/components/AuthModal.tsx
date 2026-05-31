@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Mail, Lock, User as UserIcon, Loader2 } from 'lucide-react';
 import { auth, db } from '../lib/firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
 interface AuthModalProps {
@@ -13,11 +13,31 @@ interface AuthModalProps {
 
 export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
   const [isLogin, setIsLogin] = useState(true);
+  const [isResetPassword, setIsResetPassword] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      setError('Please enter your email address');
+      return;
+    }
+    setError('');
+    setLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setResetSent(true);
+    } catch (err: any) {
+      setError(err.message || 'Failed to send reset email');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,7 +102,7 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
           </button>
 
           <h2 className="text-2xl font-black italic tracking-tighter uppercase text-white mb-6">
-            {isLogin ? 'Sign In' : 'Create Account'}
+            {isResetPassword ? 'Reset Password' : isLogin ? 'Sign In' : 'Create Account'}
           </h2>
 
           {error && (
@@ -90,9 +110,15 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
               {error}
             </div>
           )}
+          
+          {resetSent && (
+            <div className="mb-4 bg-green-500/10 border border-green-500/50 text-green-400 px-4 py-3 rounded text-sm">
+              Password reset link sent to your email!
+            </div>
+          )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLogin && (
+          <form onSubmit={isResetPassword ? handleResetPassword : handleSubmit} className="space-y-4">
+            {!isLogin && !isResetPassword && (
               <div className="relative">
                 <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
@@ -118,18 +144,36 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
               />
             </div>
             
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-                minLength={6}
-                className="w-full bg-ktc-bg-primary border border-white/10 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors"
-              />
-            </div>
+            {!isResetPassword && (
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  required
+                  minLength={6}
+                  className="w-full bg-ktc-bg-primary border border-white/10 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors"
+                />
+              </div>
+            )}
+
+            {!isResetPassword && isLogin && (
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsResetPassword(true);
+                    setError('');
+                    setResetSent(false);
+                  }}
+                  className="text-xs text-ktc-accent-primary hover:text-white transition-colors"
+                >
+                  Forgot Password?
+                </button>
+              </div>
+            )}
 
             <button
               type="submit"
@@ -137,18 +181,43 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
               className="w-full bg-ktc-accent-primary hover:bg-ktc-accent-secondary disabled:bg-ktc-accent-primary/50 text-white font-bold px-4 py-3 rounded mt-4 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-sm"
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              {isLogin ? 'Sign In' : 'Sign Up'}
+              {isResetPassword ? 'Send Link' : isLogin ? 'Sign In' : 'Sign Up'}
             </button>
           </form>
 
           <p className="mt-6 text-center text-sm text-gray-400">
-            {isLogin ? "Don't have an account? " : "Already have an account? "}
-            <button
-              onClick={() => { setIsLogin(!isLogin); setError(''); }}
-              className="text-ktc-accent-primary hover:text-white font-bold transition-colors"
-            >
-              {isLogin ? 'Create one' : 'Sign In'}
-            </button>
+            {isResetPassword ? (
+              <button
+                onClick={() => {
+                  setIsResetPassword(false);
+                  setError('');
+                  setResetSent(false);
+                }}
+                className="text-ktc-accent-primary hover:text-white font-bold transition-colors"
+              >
+                Back to Sign In
+              </button>
+            ) : isLogin ? (
+              <>
+                {"Don't have an account? "}
+                <button
+                  onClick={() => { setIsLogin(false); setError(''); }}
+                  className="text-ktc-accent-primary hover:text-white font-bold transition-colors"
+                >
+                  Create one
+                </button>
+              </>
+            ) : (
+              <>
+                {"Already have an account? "}
+                <button
+                  onClick={() => { setIsLogin(true); setError(''); }}
+                  className="text-ktc-accent-primary hover:text-white font-bold transition-colors"
+                >
+                  Sign In
+                </button>
+              </>
+            )}
           </p>
         </motion.div>
       </motion.div>
