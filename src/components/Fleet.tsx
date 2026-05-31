@@ -79,7 +79,7 @@ export function Fleet() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-[#161B22] border border-white/5 rounded-2xl overflow-hidden group hover:border-[#1D4ED8]/50 transition-colors flex flex-col h-full"
+              className="bg-[#161B22] border border-white/5 rounded-2xl overflow-hidden group hover:border-ktc-accent-primary/50 hover:shadow-[0_0_20px_rgba(29,78,216,0.4)] hover:-translate-y-2 transition-all duration-300 flex flex-col h-full"
             >
               <div className="h-48 overflow-hidden relative">
                 <img src={v.imageUrl} alt={v.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100" />

@@ -159,7 +159,7 @@ export function Contact() {
               </div>
               <div>
                 <h4 className="text-lg font-heading font-bold text-white mb-1">Email Address</h4>
-                <a href="mailto:kaushiktransportktc@gmail.com" className="text-ktc-text-muted hover:text-white transition-colors block">kaushiktransportktc@gmail.com</a>
+                <a href="mailto:support@kaushiktransport.com" className="text-ktc-text-muted hover:text-white transition-colors block">support@kaushiktransport.com</a>
               </div>
             </div>
 

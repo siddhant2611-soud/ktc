@@ -7,7 +7,7 @@ import { auth } from '../lib/firebase';
 import { signOut, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
-const ADMIN_EMAIL = 'kaushiktransportktc@gmail.com';
+const ADMIN_EMAIL = 'support@kaushiktransport.com';
 
 interface Booking {
   id: string;
@@ -62,7 +62,7 @@ export function AdminPortal() {
       setBookings(b);
     } catch (err: any) {
       console.error('Error fetching bookings:', err);
-      setError("Failed to load bookings. Ensure Firestore rules allow Admin read.");
+      setError(`Failed to load bookings. Error: ${err.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -120,7 +120,7 @@ export function AdminPortal() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center text-ktc-accent-primary">
+      <div className="min-h-screen bg-ktc-bg-primary flex items-center justify-center text-ktc-accent-primary">
         <div className="w-8 h-8 border-4 border-ktc-accent-primary border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
@@ -128,7 +128,7 @@ export function AdminPortal() {
 
   if (!user || user.email !== ADMIN_EMAIL) {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 relative">
+      <div className="min-h-screen bg-ktc-bg-primary flex flex-col items-center justify-center p-4 relative">
         <button 
           onClick={() => navigate('/')}
           className="absolute top-8 left-8 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
@@ -192,7 +192,7 @@ export function AdminPortal() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans">
+    <div className="min-h-screen bg-ktc-bg-primary text-white font-sans">
       <header className="bg-ktc-bg-section border-b border-ktc-border p-4 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -249,10 +249,10 @@ service cloud.firestore {
     }
     match /bookings/{bookingId} {
       // Normal users create their own bookings
-      allow create: if request.auth != null && (request.resource.data.userId == request.auth.uid || request.auth.token.email == 'kaushiktransportktc@gmail.com');
+      allow create: if request.auth != null && (request.resource.data.userId == request.auth.uid || request.auth.token.email == 'support@kaushiktransport.com');
       // Admin sees/modifies everything. Normal sees/modifies their own.
-      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || request.auth.token.email == 'kaushiktransportktc@gmail.com');
-      allow update, delete: if request.auth != null && (resource.data.userId == request.auth.uid || request.auth.token.email == 'kaushiktransportktc@gmail.com');
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || request.auth.token.email == 'support@kaushiktransport.com');
+      allow update, delete: if request.auth != null && (resource.data.userId == request.auth.uid || request.auth.token.email == 'support@kaushiktransport.com');
     }
   }
 }`}

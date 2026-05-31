@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { AuthModal } from './AuthModal';
 import { auth } from '../lib/firebase';
 import { signOut } from 'firebase/auth';
+import { Link } from 'react-router-dom';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -38,7 +39,7 @@ export function Navbar() {
 
   if (user) {
     navLinks.splice(3, 0, { name: 'My Bookings', href: '#my-bookings' });
-    if (user.email === 'kaushiktransportktc@gmail.com') {
+    if (user.email === 'support@kaushiktransport.com') {
       navLinks.push({ name: 'Admin Portal', href: '/admin' });
     }
   }
@@ -60,13 +61,23 @@ export function Navbar() {
           
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-[12px] font-bold uppercase tracking-widest text-ktc-text-muted hover:text-white transition-colors focus:outline-none"
-              >
-                {link.name}
-              </a>
+              link.href.startsWith('/') ? (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-[12px] font-bold uppercase tracking-widest text-ktc-text-muted hover:text-white transition-colors focus:outline-none"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-[12px] font-bold uppercase tracking-widest text-ktc-text-muted hover:text-white transition-colors focus:outline-none"
+                >
+                  {link.name}
+                </a>
+              )
             ))}
           </nav>
 
@@ -151,14 +162,25 @@ export function Navbar() {
                 </button>
               )}
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-base font-subheading text-white hover:text-ktc-accent-primary transition-colors"
-                >
-                  {link.name}
-                </a>
+                link.href.startsWith('/') ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-base font-subheading text-white hover:text-ktc-accent-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-base font-subheading text-white hover:text-ktc-accent-primary transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               <div className="pt-4 mt-2 border-t border-ktc-border flex flex-col gap-4">
                 <div className="flex flex-col gap-2 text-white">
