@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, Send, Instagram, HeadphonesIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';

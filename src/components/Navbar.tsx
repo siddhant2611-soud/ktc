@@ -39,7 +39,7 @@ export function Navbar() {
   if (user) {
     navLinks.splice(3, 0, { name: 'My Bookings', href: '#my-bookings' });
     if (user.email === 'kaushiktransportktc@gmail.com') {
-      navLinks.push({ name: 'Admin Portal', href: '#/admin' });
+      navLinks.push({ name: 'Admin Portal', href: '/admin' });
     }
   }
 

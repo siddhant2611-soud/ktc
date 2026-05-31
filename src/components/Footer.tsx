@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Truck, Mail, Phone, MapPin, Instagram, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Logo } from './Logo';
 
@@ -126,7 +126,7 @@ export function Footer() {
           <div className="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-[#94A3B8]">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#/admin" className="hover:text-ktc-accent-primary transition-colors">Admin Portal</a>
+            <a href="/admin" className="hover:text-ktc-accent-primary transition-colors">Admin Portal</a>
           </div>
         </div>
       </div>
