@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../lib/firebase';
 import { collection, query, getDocs, orderBy, updateDoc, doc, addDoc, serverTimestamp } from 'firebase/firestore';
-import { LogOut, Truck, MapPin, User, FileText, ChevronDown, Plus, X, Search } from 'lucide-react';
+import { LogOut, Truck, MapPin, User, FileText, ChevronDown, Plus, X, Search, Home } from 'lucide-react';
 import { auth } from '../lib/firebase';
 import { signOut, signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const ADMIN_EMAIL = 'kaushiktransportktc@gmail.com';
 
@@ -22,6 +23,7 @@ interface Booking {
 
 export function AdminPortal() {
   const { user, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -126,7 +128,14 @@ export function AdminPortal() {
 
   if (!user || user.email !== ADMIN_EMAIL) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-4">
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 relative">
+        <button 
+          onClick={() => navigate('/')}
+          className="absolute top-8 left-8 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+        >
+          <Home className="w-5 h-5" />
+          <span className="text-sm font-bold uppercase tracking-widest hidden sm:inline-block">Back to Website</span>
+        </button>
         <div className="bg-ktc-bg-section border border-ktc-border p-8 rounded-2xl max-w-md w-full shadow-2xl">
           <h2 className="text-2xl font-black italic tracking-tighter uppercase text-white mb-6 text-center">
             Admin Portal Access
@@ -186,11 +195,20 @@ export function AdminPortal() {
     <div className="min-h-screen bg-black text-white font-sans">
       <header className="bg-ktc-bg-section border-b border-ktc-border p-4 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Truck className="w-6 h-6 text-ktc-accent-primary" />
-            <h1 className="text-lg font-black italic tracking-tighter uppercase whitespace-nowrap">
-              KTC <span className="text-ktc-accent-primary">Admin</span>
-            </h1>
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => navigate('/')}
+              className="text-gray-400 hover:text-white"
+              title="Back to Website"
+            >
+              <Home className="w-5 h-5" />
+            </button>
+            <div className="flex items-center gap-2 border-l border-white/10 pl-4">
+              <Truck className="w-6 h-6 text-ktc-accent-primary" />
+              <h1 className="text-lg font-black italic tracking-tighter uppercase whitespace-nowrap">
+                KTC <span className="text-ktc-accent-primary">Admin</span>
+              </h1>
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm font-bold text-gray-400 hidden sm:inline-block">Logged in as Admin</span>
