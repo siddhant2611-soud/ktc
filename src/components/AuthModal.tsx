@@ -46,7 +46,11 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
       onSuccess?.();
       onClose();
     } catch (err: any) {
-      setError(err.message || 'Authentication failed');
+      if (err.code === 'auth/network-request-failed' || String(err.message).includes('network-request-failed')) {
+        setError("Network Error: Could not reach authentication server. If you are viewing this inside an editor or iframe, browser privacy settings might block it. Please try clicking the 'Open in New Tab' button in the top right, or check your ad-blocker.");
+      } else {
+        setError(err.message || 'Authentication failed');
+      }
     } finally {
       setLoading(false);
     }
