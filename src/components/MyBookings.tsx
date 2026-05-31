@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../lib/firebase';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
-import { MapPin, Truck, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
+import { MapPin, Truck, Calendar, ChevronDown, ChevronUp, Search } from 'lucide-react';
 
 interface Booking {
   id: string;
@@ -21,6 +21,15 @@ export function MyBookings() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredBookings = bookings.filter((booking) => {
+    const q = searchQuery.toLowerCase();
+    return (
+      booking.pickup.toLowerCase().includes(q) ||
+      booking.drop.toLowerCase().includes(q)
+    );
+  });
 
   useEffect(() => {
     if (!user) {
@@ -80,6 +89,19 @@ export function MyBookings() {
           </motion.div>
         </div>
 
+        {!loading && !error && bookings.length > 0 && (
+          <div className="mb-8 relative max-w-md mx-auto">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search by pickup or drop location..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-ktc-bg-section border border-ktc-border text-white pl-12 pr-4 py-3 rounded-lg focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors"
+            />
+          </div>
+        )}
+
         {loading ? (
           <div className="flex justify-center items-center py-20 text-ktc-accent-primary">
             <div className="w-8 h-8 border-4 border-ktc-accent-primary border-t-transparent rounded-full animate-spin"></div>
@@ -116,9 +138,14 @@ service cloud.firestore {
               Book a Truck
             </a>
           </div>
+        ) : filteredBookings.length === 0 ? (
+          <div className="bg-ktc-bg-section border border-ktc-border rounded-2xl p-12 text-center text-gray-400">
+            <Search className="w-12 h-12 mx-auto mb-4 text-gray-500 opacity-50" />
+            <p className="text-lg">No bookings found for "{searchQuery}".</p>
+          </div>
         ) : (
           <div className="grid gap-6">
-            {bookings.map((booking, idx) => (
+            {filteredBookings.map((booking, idx) => (
               <motion.div 
                 key={booking.id}
                 initial={{ opacity: 0, y: 20 }}
