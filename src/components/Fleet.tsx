@@ -11,7 +11,7 @@ const vehicles = [
     imageUrl: "/mini_truck_10ft.png"
   },
   { 
-    name: "14 Ft Open Container", 
+    name: "14 Ft Closed Container", 
     capacity: "3-4 Tons", 
     type: "Local & Regional",
     id: "14ft",
@@ -19,7 +19,7 @@ const vehicles = [
     imageUrl: "/truck_14ft_open.png"
   },
   { 
-    name: "19 Ft Open Container", 
+    name: "19 Ft Closed Container", 
     capacity: "5-7 Tons", 
     type: "Versatile",
     id: "19ft",
