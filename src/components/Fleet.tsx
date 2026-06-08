@@ -8,7 +8,7 @@ const vehicles = [
     type: "Last Mile", 
     id: "10ft",
     desc: "Perfect for quick, intra-city drops, light electronics, and small-scale shifting.",
-    imageUrl: "/mini_truck_10ft.png"
+    imageUrl: "/mini_truck_10ft.png?v=2"
   },
   { 
     name: "14 Ft Closed Container", 
@@ -16,7 +16,7 @@ const vehicles = [
     type: "Local & Regional",
     id: "14ft",
     desc: "Best for intra-city distributions, short-distance inter-city deliveries and retail supply.",
-    imageUrl: "/truck_14ft_open.png"
+    imageUrl: "/truck_14ft_open.png?v=2"
   },
   { 
     name: "19 Ft Closed Container", 
