@@ -6,7 +6,7 @@ export function WhatsAppFloat() {
     <motion.a
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
-      href="https://wa.me/919911995540?text=Hello!%20I%20need%20a%20truck."
+      href="https://wa.me/919810977611?text=Hello!%20I%20need%20a%20truck."
       target="_blank"
       rel="noreferrer"
       className="fixed bottom-24 right-8 z-50 flex items-center gap-2 bg-[#25D366] hover:bg-[#20BE59] text-white px-4 py-3 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] transition-colors focus:outline-none cursor-pointer"

@@ -20,11 +20,14 @@ export function Hero() {
           style={{ y, scale }}
           className="absolute inset-0"
         >
-          <img
-            src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&q=80&w=2000"
-            alt="Logistics Truck at night"
-            className="w-full h-full object-cover object-center"
-          />
+            <img
+              src="/hero-background.jpg"
+              alt="Kaushik Transport Company Fleet"
+              className="w-full h-full object-cover object-center"
+              onError={(e) => {
+                e.currentTarget.src = "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&q=80&w=2000"; // Fallback to original image if not found
+              }}
+            />
         </motion.div>
         
         <div className="absolute inset-0 bg-gradient-to-r from-ktc-bg-primary via-ktc-bg-primary/80 to-transparent z-10" />
