@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageSquare, X, Send, Bot, User } from 'lucide-react';
+import { X, Send, Bot, User } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface ChatMessage {
   id: string;
@@ -95,9 +96,9 @@ export function ChatWidget() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
               onClick={() => setIsOpen(true)}
-              className="bg-ktc-accent-primary hover:bg-ktc-accent-secondary text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(29,78,216,0.5)] transition-colors group"
+              className="bg-ktc-accent-primary hover:bg-[#1e40af] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(29,78,216,0.5)] transition-colors group"
             >
-              <MessageSquare className="w-6 h-6 group-hover:scale-110 transition-transform" />
+              <Bot className="w-6 h-6 group-hover:scale-110 transition-transform" />
             </motion.button>
           )}
         </AnimatePresence>

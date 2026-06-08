@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Truck, Package, Factory, GitBranch, MapPin, Map, X } from 'lucide-react';
+import { LoadWeightCalculator } from './LoadWeightCalculator';
 
 const services = [
   {
@@ -47,7 +48,13 @@ export function Services() {
   const closeModal = () => setActiveService(null);
 
   return (
-    <section id="services" className="py-24 bg-ktc-bg-primary relative">
+    <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      id="services" className="py-24 bg-ktc-bg-primary relative"
+    >
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-ktc-bg-section/40 via-ktc-bg-primary to-ktc-bg-primary pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -115,6 +122,8 @@ export function Services() {
             </motion.div>
           ))}
         </div>
+
+        <LoadWeightCalculator />
       </div>
 
       {/* Service Detail Modal */}
@@ -172,6 +181,6 @@ export function Services() {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </motion.section>
   );
 }

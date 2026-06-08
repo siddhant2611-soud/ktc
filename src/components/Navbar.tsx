@@ -38,7 +38,7 @@ export function Navbar() {
   ];
 
   if (user) {
-    navLinks.splice(3, 0, { name: 'My Bookings', href: '#my-bookings' });
+    navLinks.splice(3, 0, { name: 'Dashboard', href: '/dashboard' });
     if (user.email === 'support@kaushiktransport.com') {
       navLinks.push({ name: 'Admin Portal', href: '/admin' });
     }

@@ -3,7 +3,13 @@ import { ArrowRight, Phone } from 'lucide-react';
 
 export function CTA() {
   return (
-    <section className="relative py-24 overflow-hidden border-y border-ktc-border">
+    <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      className="relative py-24 overflow-hidden border-y border-ktc-border"
+    >
       
       <div className="absolute inset-0 bg-ktc-bg-section" />
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-5 mix-blend-overlay grayscale" />
@@ -59,6 +65,6 @@ export function CTA() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -13,13 +13,15 @@ import { Achievements } from './components/Achievements';
 import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
 import { CTA } from './components/CTA';
-import { MyBookings } from './components/MyBookings';
+import { Dashboard } from './components/Dashboard';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 import { WhatsAppFloat } from './components/WhatsAppFloat';
 import { ChatWidget } from './components/ChatWidget';
-import { AdminPortal } from './components/AdminPortal'; // We will create this
+import { AdminPortal } from './components/AdminPortal';
+import { DriverPortal } from './components/DriverPortal';
+import { FleetPortal } from './components/FleetPortal';
 
 function Home() {
   return (
@@ -39,7 +41,6 @@ function Home() {
         <Testimonials />
         <FAQ />
         <CTA />
-        <MyBookings />
         <Contact />
       </main>
       <Footer />
@@ -56,6 +57,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin/*" element={<AdminPortal />} />
+        <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/driver/*" element={<DriverPortal />} />
+        <Route path="/fleet/*" element={<FleetPortal />} />
       </Routes>
     </Router>
   );

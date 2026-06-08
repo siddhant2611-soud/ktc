@@ -38,7 +38,13 @@ const vehicles = [
 
 export function Fleet() {
   return (
-    <section id="fleet" className="py-24 bg-[#0A0A0A] relative border-t border-white/5">
+    <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      id="fleet" className="py-24 bg-[#0A0A0A] relative border-t border-white/5"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
           <div className="max-w-2xl">
@@ -110,6 +116,6 @@ export function Fleet() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { Truck, Mail, Phone, MapPin, Instagram, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Logo } from './Logo';
+import { LegalModal } from './LegalModal'; // added explicit import
 
 export function Footer() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [legalModalOpen, setLegalModalOpen] = useState(false);
+  const [legalType, setLegalType] = useState<'privacy' | 'terms'>('privacy');
+
+  const openLegal = (e: React.MouseEvent, type: 'privacy' | 'terms') => {
+    e.preventDefault();
+    setLegalType(type);
+    setLegalModalOpen(true);
+  };
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,13 +132,16 @@ export function Footer() {
           <p className="text-[#94A3B8] text-[10px] font-bold uppercase tracking-widest text-center md:text-left">
             &copy; 2026 Kaushik Transport Company. All Rights Reserved.
           </p>
-          <div className="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-[#94A3B8]">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="/admin" className="hover:text-ktc-accent-primary transition-colors">Admin Portal</a>
+          <div className="flex gap-4 sm:gap-6 flex-wrap justify-center text-[10px] font-bold uppercase tracking-widest text-[#94A3B8]">
+            <a href="#" onClick={(e) => openLegal(e, 'privacy')} className="hover:text-white transition-colors cursor-pointer">Privacy Policy</a>
+            <a href="#" onClick={(e) => openLegal(e, 'terms')} className="hover:text-white transition-colors cursor-pointer">Terms of Service</a>
+            <a href="/driver" className="hover:text-ktc-accent-primary transition-colors cursor-pointer">Driver Login</a>
+            <a href="/fleet" className="hover:text-ktc-accent-primary transition-colors cursor-pointer">Fleet Login</a>
+            <a href="/admin" className="hover:text-ktc-accent-primary transition-colors cursor-pointer">Admin Portal</a>
           </div>
         </div>
       </div>
+      <LegalModal isOpen={legalModalOpen} onClose={() => setLegalModalOpen(false)} type={legalType} />
     </footer>
   );
 }

@@ -107,7 +107,13 @@ export function Tracking() {
   };
 
   return (
-    <section id="tracking" className="py-24 bg-[#0A0A0A] relative border-t border-white/5 font-sans">
+    <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      id="tracking" className="py-24 bg-[#0A0A0A] relative border-t border-white/5 font-sans"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -263,6 +269,6 @@ export function Tracking() {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </motion.section>
   );
 }

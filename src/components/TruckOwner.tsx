@@ -26,7 +26,13 @@ export function TruckOwner() {
   };
 
   return (
-    <section className="py-24 bg-[#0A0A0A] relative border-t border-white/5 overflow-hidden font-sans">
+    <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      className="py-24 bg-[#0A0A0A] relative border-t border-white/5 overflow-hidden font-sans"
+    >
       
       {/* Abstract Background Element */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 p-8 opacity-5 pointer-events-none transform -translate-x-1/4 scale-150">
@@ -205,6 +211,6 @@ export function TruckOwner() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

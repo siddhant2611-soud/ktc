@@ -315,14 +315,19 @@ service cloud.firestore {
                               onChange={(e) => updateBookingStatus(booking.id, e.target.value)}
                               className={`bg-black border border-white/10 rounded px-2 py-1 text-xs font-bold uppercase tracking-widest focus:outline-none cursor-pointer ${
                                 booking.status === 'pending' ? 'text-orange-400' :
-                                booking.status === 'confirmed' ? 'text-blue-400' :
-                                booking.status === 'completed' ? 'text-green-400' :
+                                booking.status === 'driver_assigned' ? 'text-blue-300' :
+                                booking.status === 'picked_up' ? 'text-blue-500' :
+                                booking.status === 'in_transit' ? 'text-purple-400' :
+                                booking.status === 'delivered' ? 'text-green-400' :
+                                booking.status === 'cancelled' ? 'text-red-400' :
                                 'text-gray-400'
                               }`}
                             >
-                              <option value="pending">Pending</option>
-                              <option value="confirmed">Confirmed</option>
-                              <option value="completed">Completed</option>
+                              <option value="pending">Booked</option>
+                              <option value="driver_assigned">Driver Assigned</option>
+                              <option value="picked_up">Picked Up</option>
+                              <option value="in_transit">In Transit</option>
+                              <option value="delivered">Delivered</option>
                               <option value="cancelled">Cancelled</option>
                             </select>
                           </td>

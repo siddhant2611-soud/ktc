@@ -14,7 +14,9 @@ export function Contact() {
     pickup: '',
     drop: '',
     phone: '',
-    material: ''
+    material: '',
+    weight: '',
+    weightUnit: 'tons'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -67,7 +69,7 @@ export function Contact() {
 
       if (response.ok) {
         setSubmitStatus('success');
-        setFormData({ pickup: '', drop: '', phone: '', material: '' });
+        setFormData({ pickup: '', drop: '', phone: '', material: '', weight: '', weightUnit: 'tons' });
         setSelectedVehicle('');
       } else {
         setSubmitStatus('error');
@@ -99,7 +101,13 @@ export function Contact() {
 
   return (
     <>
-    <section id="contact" className="py-24 bg-ktc-bg-primary relative overflow-hidden">
+    <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      id="contact" className="py-24 bg-ktc-bg-primary relative overflow-hidden"
+    >
       <div className="absolute top-0 right-0 w-1/2 h-full bg-ktc-bg-section/50 transform skew-x-12 translate-x-32 hidden lg:block -z-10 border-l border-ktc-border/50" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -271,17 +279,46 @@ export function Contact() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="material" className="text-sm font-subheading text-[#94A3B8]">Material & Weight Details</label>
-                  <input 
-                    type="text"
-                    id="material" 
-                    value={formData.material}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full bg-ktc-bg-primary border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors text-sm"
-                    placeholder="e.g. 5 Tonnes of Electronics"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="material" className="text-sm font-subheading text-[#94A3B8]">Material Details</label>
+                    <input 
+                      type="text"
+                      id="material" 
+                      value={formData.material}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full bg-ktc-bg-primary border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors text-sm"
+                      placeholder="e.g. Electronics, Furniture"
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label htmlFor="weight" className="text-sm font-subheading text-[#94A3B8]">Weight</label>
+                      <input 
+                        type="number"
+                        id="weight" 
+                        value={formData.weight}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full bg-ktc-bg-primary border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors text-sm"
+                        placeholder="e.g. 5"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="weightUnit" className="text-sm font-subheading text-[#94A3B8]">Unit</label>
+                      <select 
+                        id="weightUnit" 
+                        value={formData.weightUnit}
+                        onChange={handleInputChange}
+                        className="w-full bg-ktc-bg-primary border border-white/10 text-white px-4 py-3 rounded focus:outline-none focus:border-ktc-accent-primary focus:ring-1 focus:ring-ktc-accent-primary transition-colors text-sm appearance-none"
+                      >
+                        <option value="tons">Tons</option>
+                        <option value="kg">KG</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
 
                 <button
@@ -310,7 +347,7 @@ export function Contact() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
     <AuthModal 
         isOpen={authModalOpen} 
         onClose={() => setAuthModalOpen(false)} 

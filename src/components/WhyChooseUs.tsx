@@ -12,7 +12,13 @@ const reasons = [
 
 export function WhyChooseUs() {
   return (
-    <section className="py-24 bg-ktc-bg-section relative border-y border-ktc-border">
+    <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      className="py-24 bg-ktc-bg-section relative border-y border-ktc-border"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           
@@ -65,6 +71,6 @@ export function WhyChooseUs() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

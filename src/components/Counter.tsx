@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useInView } from 'motion/react';
 
-export function Counter({ from = 0, to, duration = 2, suffix = '' }: { from?: number; to: number; duration?: number; suffix?: string }) {
+export function Counter({ from = 0, to, duration = 2, suffix = '', decimals = 0 }: { from?: number; to: number; duration?: number; suffix?: string; decimals?: number }) {
   const [count, setCount] = useState(from);
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -14,7 +14,8 @@ export function Counter({ from = 0, to, duration = 2, suffix = '' }: { from?: nu
         const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
         // ease out exponent
         const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        setCount(Math.floor(easeOutQuart * (to - from) + from));
+        const currentCount = easeOutQuart * (to - from) + from;
+        setCount(currentCount);
         if (progress < 1) {
           window.requestAnimationFrame(step);
         } else {
@@ -25,5 +26,5 @@ export function Counter({ from = 0, to, duration = 2, suffix = '' }: { from?: nu
     }
   }, [isInView, to, from, duration]);
 
-  return <span ref={ref}>{count}{suffix}</span>;
+  return <span ref={ref}>{count.toFixed(decimals)}{suffix}</span>;
 }

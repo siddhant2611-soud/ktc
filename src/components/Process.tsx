@@ -10,7 +10,13 @@ const steps = [
 
 export function Process() {
   return (
-    <section className="py-24 bg-ktc-bg-section border-y border-ktc-border">
+    <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      className="py-24 bg-ktc-bg-section border-y border-ktc-border"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black italic tracking-tighter uppercase text-white">How It Works</h2>
@@ -48,6 +54,6 @@ export function Process() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

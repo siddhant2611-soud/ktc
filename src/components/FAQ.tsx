@@ -33,7 +33,13 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-24 bg-[#111827] border-y border-white/5 relative overflow-hidden">
+    <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      className="py-24 bg-[#111827] border-y border-white/5 relative overflow-hidden"
+    >
       <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none scale-150 transform translate-x-1/4 -translate-y-1/4">
         <svg width="400" height="400" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" strokeWidth="0.5">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/>
@@ -101,6 +107,6 @@ export function FAQ() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

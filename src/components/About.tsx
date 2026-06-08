@@ -3,7 +3,13 @@ import { Target, CheckCircle2 } from 'lucide-react';
 
 export function About() {
   return (
-    <section id="about" className="py-24 bg-ktc-bg-primary overflow-hidden">
+    <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      id="about" className="py-24 bg-ktc-bg-primary overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           <motion.div
@@ -67,6 +73,6 @@ export function About() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
