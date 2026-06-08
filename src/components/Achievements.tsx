@@ -5,7 +5,7 @@ import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 const defaultStats = [
-  { value: 12, suffix: '+', label: 'Satisfied Customers' },
+  { value: 120, suffix: '+', label: 'Satisfied Customers' },
   { value: 5.0, suffix: '★', label: 'Average Rating' },
   { value: 100, suffix: '%', label: 'Commitment' },
   { value: 300, suffix: '+', label: 'Tons Delivered' },
